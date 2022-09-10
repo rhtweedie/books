@@ -1,0 +1,18 @@
+Data to store:
+
+- Title
+- Author
+- ISBN
+- Genre
+- Date started
+- Date finished
+- Personal rating
+
+
+Operations:
+
+- Add book
+- Search in books, by all columns stored
+- Edit book
+
+Start off with just search by title, add other things later?
