@@ -1,11 +1,8 @@
 interface BookInterface {
 
-    public static void addBook() {
-    }
+    public void addBook();
 
-    public static void editBook() {
-    }
+    public void editBook();
 
-    public static String[] searchBooks() {
-    }
+    public String[] searchBooks();
 }
