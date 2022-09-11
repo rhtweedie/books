@@ -1,8 +1,4 @@
-import java.util.HashMap;
-
 interface BookInterface {
-
-    HashMap<String, String> bookList = new HashMap<String, String>();
 
     public void addBook(String title, String author);
 
