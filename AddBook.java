@@ -7,7 +7,8 @@ public class AddBook {
             System.exit(1);
         }
 
-        FakeBookDatabase.addBook(args[0], args[1]);
+        BookInterface database = new FakeBookDatabase();
+        database.addBook(args[0], args[1]);
     }
 
 }

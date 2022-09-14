@@ -7,11 +7,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class FakeBookDatabase {
+public class FakeBookDatabase implements BookInterface {
 
     static HashMap<Integer, Book> bookList = new HashMap<Integer, Book>();
 
-    public static void addBook(String title, String author) {
+    public void addBook(String title, String author) {
         String stringToAdd = title + ", " + author + "\n";
         try {
             Files.write(Paths.get("booklist.txt"), stringToAdd.getBytes(), StandardOpenOption.APPEND);
@@ -28,7 +28,7 @@ public class FakeBookDatabase {
         return null;
     }
 
-    public static Book[] getAllBooks() {
+    public Book[] getAllBooks() {
         try {
             File bookFile = new File("booklist.txt");
             Scanner sc = new Scanner(bookFile);
