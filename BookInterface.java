@@ -5,4 +5,6 @@ interface BookInterface {
     public void editBook(String oldTitle, String newTitle, String newAuthor);
 
     public String[] searchBooks();
+
+    public Book[] getAllBooks();
 }
