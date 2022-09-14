@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class FakeBookDatabase {
 
-    HashMap<Integer, Book> bookList = new HashMap<Integer, Book>();
+    static HashMap<Integer, Book> bookList = new HashMap<Integer, Book>();
 
     public void addBook(String title, String author) {
         String stringToAdd = title + ", " + author + "\n";
@@ -28,7 +28,7 @@ public class FakeBookDatabase {
         return null;
     }
 
-    public Book[] getAllBooks() {
+    public static Book[] getAllBooks() {
         try {
             File bookFile = new File("booklist.txt");
             Scanner reader = new Scanner(bookFile);
