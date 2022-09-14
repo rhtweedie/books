@@ -11,7 +11,7 @@ public class FakeBookDatabase {
 
     static HashMap<Integer, Book> bookList = new HashMap<Integer, Book>();
 
-    public void addBook(String title, String author) {
+    public static void addBook(String title, String author) {
         String stringToAdd = title + ", " + author + "\n";
         try {
             Files.write(Paths.get("booklist.txt"), stringToAdd.getBytes(), StandardOpenOption.APPEND);
