@@ -31,10 +31,10 @@ public class FakeBookDatabase {
     public static Book[] getAllBooks() {
         try {
             File bookFile = new File("booklist.txt");
-            Scanner reader = new Scanner(bookFile);
+            Scanner sc = new Scanner(bookFile);
             int count = 1;
-            while (reader.hasNextLine()) {
-                String bookData = reader.nextLine();
+            while (sc.hasNextLine()) {
+                String bookData = sc.nextLine();
                 String[] bookDataSplit = bookData.split(",");
                 String title = bookDataSplit[0];
                 String author = bookDataSplit[1];
@@ -42,7 +42,7 @@ public class FakeBookDatabase {
                 bookList.put(count, book);
                 count += 1;
             }
-            reader.close();
+            sc.close();
         } catch (FileNotFoundException e) {
             System.out.println("File not found.");
             e.printStackTrace();
