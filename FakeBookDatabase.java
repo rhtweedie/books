@@ -1,19 +1,27 @@
 import java.util.HashMap;
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class FakeBookDatabase {
 
     HashMap<Integer, Book> bookList = new HashMap<Integer, Book>();
 
-    public void addBook(Integer ID, Book Booklist) {
-        bookList.put(ID, Booklist);
+    public void addBook(String title, String author) {
+        String stringToAdd = title + ", " + author + "\n";
+        try {
+            Files.write(Paths.get("booklist.txt"), stringToAdd.getBytes(), StandardOpenOption.APPEND);
+        } catch (IOException e) {
+            System.out.println("File not found.");
+            e.printStackTrace();
+        }
     }
 
     public void editBook(String oldTitle, String newTitle, String newAuthor) {
-        bookList.remove(oldTitle);
-        bookList.put(newTitle, newAuthor);
     }
 
     public String[] searchBooks() {
