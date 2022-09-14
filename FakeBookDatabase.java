@@ -9,11 +9,12 @@ import java.util.Scanner;
 
 public class FakeBookDatabase implements BookInterface {
 
-    static HashMap<Integer, Book> bookList = new HashMap<Integer, Book>();
+    private HashMap<Integer, Book> bookList = new HashMap<Integer, Book>();
 
     public void addBook(String title, String author) {
         String stringToAdd = title + ", " + author + "\n";
         try {
+            // TODO: Take filename in constructor, rather than hardcoding it here.
             Files.write(Paths.get("booklist.txt"), stringToAdd.getBytes(), StandardOpenOption.APPEND);
         } catch (IOException e) {
             System.out.println("File not found.");
@@ -29,6 +30,8 @@ public class FakeBookDatabase implements BookInterface {
     }
 
     public Book[] getAllBooks() {
+        // TODO: Use an ArrayList to return a List rather than an array. No need for the
+        // HashMap.
         try {
             File bookFile = new File("booklist.txt");
             Scanner sc = new Scanner(bookFile);
