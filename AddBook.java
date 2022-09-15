@@ -1,14 +1,14 @@
 public class AddBook {
 
     public static void main(String[] args) {
-        if (args.length != 2) {
+        if (args.length != 3) {
             System.err.println("Usage:");
-            System.err.println("  AddBook <title> <author>");
+            System.err.println("  AddBook <title> <author> <file to which book will be added>");
             System.exit(1);
         }
 
         BookInterface database = new FakeBookDatabase();
-        database.addBook(args[0], args[1]);
+        database.addBook(args[0], args[1], args[2]);
     }
 
 }

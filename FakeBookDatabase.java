@@ -11,11 +11,10 @@ public class FakeBookDatabase implements BookInterface {
 
     private HashMap<Integer, Book> bookList = new HashMap<Integer, Book>();
 
-    public void addBook(String title, String author) {
+    public void addBook(String title, String author, String fileToAddTo) {
         String stringToAdd = title + ", " + author + "\n";
         try {
-            // TODO: Take filename in constructor, rather than hardcoding it here.
-            Files.write(Paths.get("booklist.txt"), stringToAdd.getBytes(), StandardOpenOption.APPEND);
+            Files.write(Paths.get(fileToAddTo), stringToAdd.getBytes(), StandardOpenOption.APPEND);
         } catch (IOException e) {
             System.out.println("File not found.");
             e.printStackTrace();
