@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.io.File;
 import java.nio.file.Files;
@@ -28,21 +29,20 @@ public class TextFileBookDatabase implements BookInterface {
         return null;
     }
 
-    public Book[] getAllBooks() {
-        // TODO: Use an ArrayList to return a List rather than an array. No need for the
-        // HashMap.
+    public ArrayList<Book> getAllBooks(String listToPrint) {
+
+        ArrayList<Book> books = new ArrayList<Book>();
+
         try {
-            File bookFile = new File("booklist.txt");
+            File bookFile = new File(listToPrint);
             Scanner sc = new Scanner(bookFile);
-            int count = 1;
             while (sc.hasNextLine()) {
                 String bookData = sc.nextLine();
                 String[] bookDataSplit = bookData.split(",");
                 String title = bookDataSplit[0];
                 String author = bookDataSplit[1];
                 Book book = new Book(title, author);
-                bookList.put(count, book);
-                count += 1;
+                books.add(book);
             }
             sc.close();
         } catch (FileNotFoundException e) {
@@ -50,7 +50,6 @@ public class TextFileBookDatabase implements BookInterface {
             e.printStackTrace();
         }
 
-        Book[] books = (bookList.values()).toArray(new Book[bookList.size()]);
         return books;
 
     }

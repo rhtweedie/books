@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 interface BookInterface {
 
     /**
@@ -16,5 +18,5 @@ interface BookInterface {
     /**
      * Gets all the books in the database.
      */
-    public Book[] getAllBooks();
+    public ArrayList<Book> getAllBooks(String listToPrint);
 }
