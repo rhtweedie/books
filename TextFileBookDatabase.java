@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -9,8 +8,6 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class TextFileBookDatabase implements BookInterface {
-
-    private HashMap<Integer, Book> bookList = new HashMap<Integer, Book>();
 
     public void addBook(String title, String author, String fileToAddTo) {
         String stringToAdd = title + ", " + author + "\n";
