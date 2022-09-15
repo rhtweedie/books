@@ -7,7 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class FakeBookDatabase implements BookInterface {
+public class TextFileBookDatabase implements BookInterface {
 
     private HashMap<Integer, Book> bookList = new HashMap<Integer, Book>();
 
