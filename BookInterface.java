@@ -17,6 +17,8 @@ interface BookInterface {
 
     /**
      * Gets all the books in the database.
+     * 
+     * @param listToPrint The list of books that is to be returned
      */
     public ArrayList<Book> getAllBooks(String listToPrint);
 }
