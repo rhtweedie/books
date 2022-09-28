@@ -51,7 +51,8 @@ public class SQLBookDB implements BookInterface {
     }
 
     public static void main(String[] args) {
-        String filename = "books.db";
+        String filename = "jdbc:sqlite:books.db";
         SQLBookDB bookDB = new SQLBookDB(filename);
+        bookDB.addBook("Title", "Author", "fileToAddTo");
     }
 }
