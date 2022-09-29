@@ -19,10 +19,23 @@ public class SQLBookDB implements BookInterface {
         }
 
         System.out.println("Connected to database " + filename + ".");
+
+        String createTable = "CREATE TABLE IF NOT EXISTS books (\n"
+                + "                 title text NOT NULL, \n"
+                + "                 author text\n"
+                + ");";
+
+        try (Statement stmt = con.createStatement()) {
+            stmt.execute(createTable);
+        } catch (SQLException e) {
+            System.out.println(e.getClass().getName() + ":" + e.getMessage());
+        }
     }
 
     public void addBook(String title, String author, String fileToAddTo) {
-        String query = "INSERT INTO book.db VALUES (" + title + ", " + author + ")";
+        String query = "INSERT INTO " + fileToAddTo + " (title, author) VALUES (\"" + title + "\", \"" + author
+                + "\");";
+        System.out.println(query);
 
         try (Statement stmt = con.createStatement()) {
             ResultSet rs = stmt.executeQuery(query);
@@ -46,13 +59,32 @@ public class SQLBookDB implements BookInterface {
 
     @Override
     public ArrayList<Book> getAllBooks(String listToPrint) {
-        // TODO Auto-generated method stub
-        return null;
+        String query = "SELECT * FROM " + listToPrint + ";";
+        System.out.println(query);
+
+        ArrayList<Book> books = new ArrayList<Book>();
+
+        try (Statement stmt = con.createStatement()) {
+            ResultSet rs = stmt.executeQuery(query);
+            System.out.println(rs);
+            while (rs.next()) {
+                String title = rs.getString("title");
+                String author = rs.getString("author");
+                Book book = new Book(title, author);
+                books.add(book);
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+
+        return books;
     }
 
     public static void main(String[] args) {
-        String filename = "jdbc:sqlite:books.db";
+        String filename = "bookDB";
         SQLBookDB bookDB = new SQLBookDB(filename);
-        bookDB.addBook("Title", "Author", "fileToAddTo");
+        bookDB.addBook("Catch-22", "Joseph Heller", "books");
+        bookDB.getAllBooks("books");
     }
 }
