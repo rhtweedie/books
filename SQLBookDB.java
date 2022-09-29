@@ -1,5 +1,6 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -33,15 +34,17 @@ public class SQLBookDB implements BookInterface {
     }
 
     public void addBook(String title, String author, String fileToAddTo) {
-        String query = "INSERT INTO " + fileToAddTo + " (title, author) VALUES (\"" + title + "\", \"" + author
-                + "\");";
-        System.out.println(query);
+        String insert = "INSERT INTO " + fileToAddTo + " (title, author) VALUES (?,?)";
+        System.out.println(insert);
+        PreparedStatement ps = null;
 
-        try (Statement stmt = con.createStatement()) {
-            ResultSet rs = stmt.executeQuery(query);
-            System.out.println(rs);
+        try {
+            ps = con.prepareStatement(insert);
+            ps.setString(1, title);
+            ps.setString(2, author);
+            System.out.println("Added " + title + " by " + author);
         } catch (SQLException e) {
-            System.out.println(e.getClass().getName() + ": " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
