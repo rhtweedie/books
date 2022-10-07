@@ -11,17 +11,19 @@ public class BookCommander {
         try (Scanner sc = new Scanner(System.in)) {
             BookInterface bookDB = new SQLBookDB("books.sqlite");
 
-            System.out.println("What would you like to do today?");
-            System.out.println("1: List all books");
+            while (true) {
+                System.out.println("What would you like to do today?");
+                System.out.println("1: List all books");
 
-            int choice = sc.nextInt();
+                int choice = sc.nextInt();
 
-            switch (choice) {
-                case 1:
-                    listAllBooks(bookDB);
-                    break;
-                default:
-                    System.out.println("Invalid option.");
+                switch (choice) {
+                    case 1:
+                        listAllBooks(bookDB);
+                        break;
+                    default:
+                        System.out.println("Invalid option.");
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
