@@ -1,3 +1,5 @@
+package rht.bookdb;
+
 public class AddBook {
 
     public static void main(String[] args) {

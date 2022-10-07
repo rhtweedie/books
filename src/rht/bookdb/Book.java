@@ -1,3 +1,5 @@
+package rht.bookdb;
+
 public class Book {
 
     private String title;
