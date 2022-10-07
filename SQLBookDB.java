@@ -42,14 +42,13 @@ public class SQLBookDB implements BookInterface {
 
     @Override
     public void editBook(String oldTitle, String newTitle, String newAuthor) throws SQLException {
-        String update = "UPDATE books SET title = ? WHERE title = ?, author = ? WHERE title = ?";
+        String update = "UPDATE books SET title = ? WHERE title = ? AND author = ?";
         PreparedStatement ps = null;
 
         ps = con.prepareStatement(update);
         ps.setString(1, newTitle);
         ps.setString(2, oldTitle);
         ps.setString(3, newAuthor);
-        ps.setString(4, oldTitle);
         System.out.println("Changed entry for " + oldTitle + " to " + newTitle + " by " + newAuthor + ".");
     }
 
