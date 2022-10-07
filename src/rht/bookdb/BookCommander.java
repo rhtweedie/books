@@ -8,13 +8,12 @@ import java.util.Scanner;
 public class BookCommander {
 
     public static void main(String args[]) {
-        try {
+        try (Scanner sc = new Scanner(System.in)) {
             BookInterface bookDB = new SQLBookDB("books.sqlite");
 
             System.out.println("What would you like to do today?");
             System.out.println("1: List all books");
 
-            Scanner sc = new Scanner(System.in);
             int choice = sc.nextInt();
 
             switch (choice) {
