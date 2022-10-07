@@ -6,11 +6,17 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class BookCommander {
+    private final BookInterface bookDB;
+
+    public BookCommander(BookInterface bookDB) {
+        this.bookDB = bookDB;
+    }
 
     public static void main(String args[]) {
         try (Scanner sc = new Scanner(System.in)) {
             BookInterface bookDB = new SQLBookDB("books.sqlite");
-            mainMenu(bookDB, sc);
+            BookCommander commander = new BookCommander(bookDB);
+            commander.mainMenu(sc);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -18,7 +24,7 @@ public class BookCommander {
         }
     }
 
-    private static void mainMenu(BookInterface bookDB, Scanner sc) throws IOException, SQLException {
+    private void mainMenu(Scanner sc) throws IOException, SQLException {
         while (true) {
             System.out.println("What would you like to do today?");
             System.out.println("0: Quit");
@@ -30,7 +36,7 @@ public class BookCommander {
                 case 0:
                     return;
                 case 1:
-                    listAllBooks(bookDB);
+                    listAllBooks();
                     break;
                 default:
                     System.out.println("Invalid option.");
@@ -39,7 +45,7 @@ public class BookCommander {
 
     }
 
-    private static void listAllBooks(BookInterface bookDB) throws IOException, SQLException {
+    private void listAllBooks() throws IOException, SQLException {
         ArrayList<Book> books = bookDB.getAllBooks();
         for (Book book : books) {
             System.out.println(book.getTitle() + " by " + book.getAuthor());
