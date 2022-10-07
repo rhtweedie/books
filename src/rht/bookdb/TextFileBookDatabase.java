@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class TextFileBookDatabase implements BookInterface {
 
-    private String fileName;
+    private final String fileName;
 
     public TextFileBookDatabase(String fileName) {
         this.fileName = fileName;

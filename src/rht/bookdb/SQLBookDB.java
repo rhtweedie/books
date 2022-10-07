@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class SQLBookDB implements BookInterface {
 
-    public Connection con = null;
+    private final Connection con;
 
     public SQLBookDB(String filename) throws IOException, SQLException {
 
