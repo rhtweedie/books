@@ -10,28 +10,33 @@ public class BookCommander {
     public static void main(String args[]) {
         try (Scanner sc = new Scanner(System.in)) {
             BookInterface bookDB = new SQLBookDB("books.sqlite");
+            mainMenu(bookDB, sc);
 
-            menu: while (true) {
-                System.out.println("What would you like to do today?");
-                System.out.println("0: Quit");
-                System.out.println("1: List all books");
-
-                int choice = sc.nextInt();
-
-                switch (choice) {
-                    case 0:
-                        break menu;
-                    case 1:
-                        listAllBooks(bookDB);
-                        break;
-                    default:
-                        System.out.println("Invalid option.");
-                }
-            }
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(1);
         }
+    }
+
+    private static void mainMenu(BookInterface bookDB, Scanner sc) throws IOException, SQLException {
+        while (true) {
+            System.out.println("What would you like to do today?");
+            System.out.println("0: Quit");
+            System.out.println("1: List all books");
+
+            int choice = sc.nextInt();
+
+            switch (choice) {
+                case 0:
+                    return;
+                case 1:
+                    listAllBooks(bookDB);
+                    break;
+                default:
+                    System.out.println("Invalid option.");
+            }
+        }
+
     }
 
     private static void listAllBooks(BookInterface bookDB) throws IOException, SQLException {
