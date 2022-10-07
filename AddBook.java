@@ -7,8 +7,8 @@ public class AddBook {
             System.exit(1);
         }
 
-        BookInterface database = new TextFileBookDatabase();
-        database.addBook(args[0], args[1], args[2]);
+        BookInterface database = new TextFileBookDatabase(args[2]);
+        database.addBook(args[0], args[1]);
     }
 
 }

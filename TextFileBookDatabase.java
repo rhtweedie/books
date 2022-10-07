@@ -9,10 +9,16 @@ import java.util.Scanner;
 
 public class TextFileBookDatabase implements BookInterface {
 
-    public void addBook(String title, String author, String fileToAddTo) {
+    private String fileName;
+
+    public TextFileBookDatabase(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public void addBook(String title, String author) {
         String stringToAdd = title + ", " + author + "\n";
         try {
-            Files.write(Paths.get(fileToAddTo), stringToAdd.getBytes(), StandardOpenOption.APPEND);
+            Files.write(Paths.get(fileName), stringToAdd.getBytes(), StandardOpenOption.APPEND);
         } catch (IOException e) {
             System.out.println("File not found.");
             e.printStackTrace();
@@ -26,12 +32,12 @@ public class TextFileBookDatabase implements BookInterface {
         return null;
     }
 
-    public ArrayList<Book> getAllBooks(String listToPrint) {
+    public ArrayList<Book> getAllBooks() {
 
         ArrayList<Book> books = new ArrayList<Book>();
 
         try {
-            File bookFile = new File(listToPrint);
+            File bookFile = new File(fileName);
             Scanner sc = new Scanner(bookFile);
             while (sc.hasNextLine()) {
                 String bookData = sc.nextLine();

@@ -9,8 +9,8 @@ public class PrintBooks {
             System.exit(1);
         }
 
-        BookInterface database = new TextFileBookDatabase();
-        ArrayList<Book> books = database.getAllBooks(args[0]);
+        BookInterface database = new TextFileBookDatabase(args[0]);
+        ArrayList<Book> books = database.getAllBooks();
         System.out.println("--- All books contained in database ---");
         for (int i = 0; i < books.size(); i++) {
             System.out.println((books.get(i)).getTitle() + ", " + (books.get(i)).getAuthor());

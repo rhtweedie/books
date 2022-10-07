@@ -33,25 +33,37 @@ public class SQLBookDB implements BookInterface {
         }
     }
 
-    public void addBook(String title, String author, String fileToAddTo) {
-        String insert = "INSERT INTO " + fileToAddTo + " (title, author) VALUES (?,?)";
-        System.out.println(insert);
+    public void addBook(String title, String author) {
+        String insert = "INSERT INTO books (title, author) VALUES (?,?)";
         PreparedStatement ps = null;
-
+        int numRowsInserted = 0;
         try {
             ps = con.prepareStatement(insert);
             ps.setString(1, title);
             ps.setString(2, author);
+            numRowsInserted = ps.executeUpdate();
             System.out.println("Added " + title + " by " + author);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        System.out.println("Number of rows inserted: " + numRowsInserted);
     }
 
     @Override
     public void editBook(String oldTitle, String newTitle, String newAuthor) {
-        // TODO Auto-generated method stub
-
+        String update = "UPDATE books SET title = ? WHERE title = ?, author = ? WHERE title = ?";
+        PreparedStatement ps = null;
+        try {
+            ps = con.prepareStatement(update);
+            ps.setString(1, newTitle);
+            ps.setString(2, oldTitle);
+            ps.setString(3, newAuthor);
+            ps.setString(4, oldTitle);
+            System.out.println("Changed entry for " + oldTitle + " to " + newTitle + " by " + newAuthor + ".");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -61,15 +73,12 @@ public class SQLBookDB implements BookInterface {
     }
 
     @Override
-    public ArrayList<Book> getAllBooks(String listToPrint) {
-        String query = "SELECT * FROM " + listToPrint + ";";
-        System.out.println(query);
-
+    public ArrayList<Book> getAllBooks() {
+        String query = "SELECT rowid, title, author FROM books";
         ArrayList<Book> books = new ArrayList<Book>();
 
         try (Statement stmt = con.createStatement()) {
             ResultSet rs = stmt.executeQuery(query);
-            System.out.println(rs);
             while (rs.next()) {
                 String title = rs.getString("title");
                 String author = rs.getString("author");
@@ -87,7 +96,12 @@ public class SQLBookDB implements BookInterface {
     public static void main(String[] args) {
         String filename = "bookDB";
         SQLBookDB bookDB = new SQLBookDB(filename);
-        bookDB.addBook("Catch-22", "Joseph Heller", "books");
-        bookDB.getAllBooks("books");
+        bookDB.addBook("Catch-22", "Joseph Heller");
+        ArrayList<Book> books = bookDB.getAllBooks();
+        System.out.println("--- All books contained in database ---");
+        for (int i = 0; i < books.size(); i++) {
+            System.out.println((books.get(i)).getTitle() + ", " + (books.get(i)).getAuthor());
+        }
+        bookDB.editBook("Catch-22", "The Honourable Schoolboy", "John le Carre");
     }
 }
