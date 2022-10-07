@@ -89,7 +89,7 @@ public class SQLBookDB implements BookInterface {
             }
             bookDB.editBook("Catch-22", "The Honourable Schoolboy", "John le Carre");
         } catch (Exception e) {
-            System.err.println(e);
+            e.printStackTrace();
             System.exit(1);
         }
     }

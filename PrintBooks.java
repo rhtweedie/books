@@ -17,7 +17,7 @@ public class PrintBooks {
                 System.out.println((books.get(i)).getTitle() + ", " + (books.get(i)).getAuthor());
             }
         } catch (Exception e) {
-            System.err.println(e);
+            e.printStackTrace();
             System.exit(1);
         }
     }

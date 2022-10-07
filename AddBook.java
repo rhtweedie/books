@@ -11,7 +11,7 @@ public class AddBook {
             BookInterface database = new TextFileBookDatabase(args[2]);
             database.addBook(args[0], args[1]);
         } catch (Exception e) {
-            System.err.println(e);
+            e.printStackTrace();
             System.exit(1);
         }
     }
