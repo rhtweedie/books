@@ -11,13 +11,16 @@ public class BookCommander {
         try (Scanner sc = new Scanner(System.in)) {
             BookInterface bookDB = new SQLBookDB("books.sqlite");
 
-            while (true) {
+            menu: while (true) {
                 System.out.println("What would you like to do today?");
+                System.out.println("0: Quit");
                 System.out.println("1: List all books");
 
                 int choice = sc.nextInt();
 
                 switch (choice) {
+                    case 0:
+                        break menu;
                     case 1:
                         listAllBooks(bookDB);
                         break;
