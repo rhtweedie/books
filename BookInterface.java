@@ -1,3 +1,5 @@
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 interface BookInterface {
@@ -5,11 +7,10 @@ interface BookInterface {
     /**
      * Adds a new book to the database.
      * 
-     * @param title       The title of the book
-     * @param author      The author of the book
-     * @param fileToAddTo The file to which the book will be added
+     * @param title  The title of the book
+     * @param author The author of the book
      */
-    public void addBook(String title, String author);
+    public void addBook(String title, String author) throws IOException, SQLException;
 
     /**
      * Edits an entry in the database.
@@ -18,14 +19,12 @@ interface BookInterface {
      * @param newTitle  The new title of the book
      * @param newAuthor The new author of the book
      */
-    public void editBook(String oldTitle, String newTitle, String newAuthor);
+    public void editBook(String oldTitle, String newTitle, String newAuthor) throws IOException, SQLException;
 
     public String[] searchBooks();
 
     /**
      * Gets all the books in the database.
-     * 
-     * @param listToPrint The list of books to be returned
      */
-    public ArrayList<Book> getAllBooks();
+    public ArrayList<Book> getAllBooks() throws IOException, SQLException;
 }

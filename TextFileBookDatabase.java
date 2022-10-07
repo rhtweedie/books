@@ -3,7 +3,6 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -15,16 +14,13 @@ public class TextFileBookDatabase implements BookInterface {
         this.fileName = fileName;
     }
 
-    public void addBook(String title, String author) {
+    @Override
+    public void addBook(String title, String author) throws IOException {
         String stringToAdd = title + ", " + author + "\n";
-        try {
-            Files.write(Paths.get(fileName), stringToAdd.getBytes(), StandardOpenOption.APPEND);
-        } catch (IOException e) {
-            System.out.println("File not found.");
-            e.printStackTrace();
-        }
+        Files.write(Paths.get(fileName), stringToAdd.getBytes(), StandardOpenOption.APPEND);
     }
 
+    @Override
     public void editBook(String oldTitle, String newTitle, String newAuthor) {
     }
 
@@ -32,26 +28,22 @@ public class TextFileBookDatabase implements BookInterface {
         return null;
     }
 
-    public ArrayList<Book> getAllBooks() {
+    @Override
+    public ArrayList<Book> getAllBooks() throws IOException {
 
         ArrayList<Book> books = new ArrayList<Book>();
 
-        try {
-            File bookFile = new File(fileName);
-            Scanner sc = new Scanner(bookFile);
-            while (sc.hasNextLine()) {
-                String bookData = sc.nextLine();
-                String[] bookDataSplit = bookData.split(",");
-                String title = bookDataSplit[0];
-                String author = bookDataSplit[1];
-                Book book = new Book(title, author);
-                books.add(book);
-            }
-            sc.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found.");
-            e.printStackTrace();
+        File bookFile = new File(fileName);
+        Scanner sc = new Scanner(bookFile);
+        while (sc.hasNextLine()) {
+            String bookData = sc.nextLine();
+            String[] bookDataSplit = bookData.split(",");
+            String title = bookDataSplit[0];
+            String author = bookDataSplit[1];
+            Book book = new Book(title, author);
+            books.add(book);
         }
+        sc.close();
 
         return books;
 

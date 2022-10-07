@@ -7,8 +7,13 @@ public class AddBook {
             System.exit(1);
         }
 
-        BookInterface database = new TextFileBookDatabase(args[2]);
-        database.addBook(args[0], args[1]);
+        try {
+            BookInterface database = new TextFileBookDatabase(args[2]);
+            database.addBook(args[0], args[1]);
+        } catch (Exception e) {
+            System.err.println(e);
+            System.exit(1);
+        }
     }
 
 }

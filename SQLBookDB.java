@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -10,15 +11,9 @@ public class SQLBookDB implements BookInterface {
 
     public Connection con = null;
 
-    public SQLBookDB(String filename) {
+    public SQLBookDB(String filename) throws IOException, SQLException {
 
-        try {
-            con = DriverManager.getConnection("jdbc:sqlite:" + filename);
-        } catch (Exception e) {
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(0);
-        }
-
+        con = DriverManager.getConnection("jdbc:sqlite:" + filename);
         System.out.println("Connected to database " + filename + ".");
 
         String createTable = "CREATE TABLE IF NOT EXISTS books (\n"
@@ -28,42 +23,34 @@ public class SQLBookDB implements BookInterface {
 
         try (Statement stmt = con.createStatement()) {
             stmt.execute(createTable);
-        } catch (SQLException e) {
-            System.out.println(e.getClass().getName() + ":" + e.getMessage());
         }
     }
 
-    public void addBook(String title, String author) {
+    @Override
+    public void addBook(String title, String author) throws SQLException {
         String insert = "INSERT INTO books (title, author) VALUES (?,?)";
         PreparedStatement ps = null;
         int numRowsInserted = 0;
-        try {
-            ps = con.prepareStatement(insert);
-            ps.setString(1, title);
-            ps.setString(2, author);
-            numRowsInserted = ps.executeUpdate();
-            System.out.println("Added " + title + " by " + author);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
+        ps = con.prepareStatement(insert);
+        ps.setString(1, title);
+        ps.setString(2, author);
+        numRowsInserted = ps.executeUpdate();
+        System.out.println("Added " + title + " by " + author);
         System.out.println("Number of rows inserted: " + numRowsInserted);
     }
 
     @Override
-    public void editBook(String oldTitle, String newTitle, String newAuthor) {
+    public void editBook(String oldTitle, String newTitle, String newAuthor) throws SQLException {
         String update = "UPDATE books SET title = ? WHERE title = ?, author = ? WHERE title = ?";
         PreparedStatement ps = null;
-        try {
-            ps = con.prepareStatement(update);
-            ps.setString(1, newTitle);
-            ps.setString(2, oldTitle);
-            ps.setString(3, newAuthor);
-            ps.setString(4, oldTitle);
-            System.out.println("Changed entry for " + oldTitle + " to " + newTitle + " by " + newAuthor + ".");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+
+        ps = con.prepareStatement(update);
+        ps.setString(1, newTitle);
+        ps.setString(2, oldTitle);
+        ps.setString(3, newAuthor);
+        ps.setString(4, oldTitle);
+        System.out.println("Changed entry for " + oldTitle + " to " + newTitle + " by " + newAuthor + ".");
     }
 
     @Override
@@ -73,7 +60,7 @@ public class SQLBookDB implements BookInterface {
     }
 
     @Override
-    public ArrayList<Book> getAllBooks() {
+    public ArrayList<Book> getAllBooks() throws SQLException {
         String query = "SELECT rowid, title, author FROM books";
         ArrayList<Book> books = new ArrayList<Book>();
 
@@ -85,9 +72,6 @@ public class SQLBookDB implements BookInterface {
                 Book book = new Book(title, author);
                 books.add(book);
             }
-
-        } catch (SQLException e) {
-            System.out.println(e.getClass().getName() + ": " + e.getMessage());
         }
 
         return books;
@@ -95,13 +79,18 @@ public class SQLBookDB implements BookInterface {
 
     public static void main(String[] args) {
         String filename = "bookDB";
-        SQLBookDB bookDB = new SQLBookDB(filename);
-        bookDB.addBook("Catch-22", "Joseph Heller");
-        ArrayList<Book> books = bookDB.getAllBooks();
-        System.out.println("--- All books contained in database ---");
-        for (int i = 0; i < books.size(); i++) {
-            System.out.println((books.get(i)).getTitle() + ", " + (books.get(i)).getAuthor());
+        try {
+            SQLBookDB bookDB = new SQLBookDB(filename);
+            bookDB.addBook("Catch-22", "Joseph Heller");
+            ArrayList<Book> books = bookDB.getAllBooks();
+            System.out.println("--- All books contained in database ---");
+            for (int i = 0; i < books.size(); i++) {
+                System.out.println((books.get(i)).getTitle() + ", " + (books.get(i)).getAuthor());
+            }
+            bookDB.editBook("Catch-22", "The Honourable Schoolboy", "John le Carre");
+        } catch (Exception e) {
+            System.err.println(e);
+            System.exit(1);
         }
-        bookDB.editBook("Catch-22", "The Honourable Schoolboy", "John le Carre");
     }
 }
