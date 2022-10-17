@@ -29,6 +29,9 @@ public class BookCommander {
             System.out.println("What would you like to do today?");
             System.out.println("0: Quit");
             System.out.println("1: List all books");
+            System.out.println("2: Add a book");
+            System.out.println("3: Edit a book");
+            System.out.print("Option: ");
 
             int choice = sc.nextInt();
 
@@ -38,6 +41,21 @@ public class BookCommander {
                 case 1:
                     listAllBooks();
                     break;
+                case 2:
+                    System.out.print("Title: ");
+                    String title = sc.nextLine();
+                    System.out.print("Author: ");
+                    String author = sc.nextLine();
+                    addBook(title, author);
+                    break;
+                case 3:
+                    System.out.print("What is the title of the book to be edited? ");
+                    String oldTitle = sc.nextLine();
+                    System.out.print("New title: ");
+                    String newTitle = sc.nextLine();
+                    System.out.print("New author: ");
+                    String newAuthor = sc.nextLine();
+                    editBook(oldTitle, newTitle, newAuthor);
                 default:
                     System.out.println("Invalid option.");
             }
@@ -50,5 +68,13 @@ public class BookCommander {
         for (Book book : books) {
             System.out.println(book.getTitle() + " by " + book.getAuthor());
         }
+    }
+
+    private void addBook(String title, String author) throws IOException, SQLException {
+        bookDB.addBook(title, author);
+    }
+
+    private void editBook(String oldTitle, String newTitle, String newAuthor) throws IOException, SQLException {
+        bookDB.editBook(oldTitle, newTitle, newAuthor);
     }
 }
