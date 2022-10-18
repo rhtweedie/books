@@ -33,7 +33,7 @@ public class BookCommander {
             System.out.println("3: Edit a book");
             System.out.print("Option: ");
 
-            int choice = sc.nextInt();
+            int choice = Integer.parseInt(sc.nextLine());
 
             switch (choice) {
                 case 0:
