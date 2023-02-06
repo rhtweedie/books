@@ -95,13 +95,19 @@ public class BookCommander {
 
     private void addBook(String title, String author) throws IOException, SQLException {
         bookDB.addBook(title, author);
+        System.out.println("Added " + title + " by " + author);
     }
 
     private void editBook(int id, String newTitle, String newAuthor) throws IOException, SQLException {
-        bookDB.editBook(id, newTitle, newAuthor);
+        if (bookDB.editBook(id, newTitle, newAuthor)) {
+            System.out.println("Changed entry " + id + " to " + newTitle + " by " + newAuthor + ".");
+        } else {
+            System.out.println("No book found with ID " + id + ".");
+        }
     }
 
     private void removeBook(int id) throws IOException, SQLException {
         bookDB.removeBook(id);
+        System.out.println("Removed entry " + id + ".");
     }
 }

@@ -33,23 +33,16 @@ public class SQLBookDB implements BookInterface {
         PreparedStatement ps = con.prepareStatement("INSERT INTO books (title, author) VALUES (?,?)");
         ps.setString(1, title);
         ps.setString(2, author);
-        int numRowsInserted = ps.executeUpdate();
-        System.out.println("Added " + title + " by " + author);
-        System.out.println("Number of rows inserted: " + numRowsInserted);
+        ps.executeUpdate();
     }
 
     @Override
-    public void editBook(int id, String newTitle, String newAuthor) throws SQLException {
+    public boolean editBook(int id, String newTitle, String newAuthor) throws SQLException {
         PreparedStatement ps = con.prepareStatement("UPDATE books SET title = ?, author = ? WHERE rowid = ?");
         ps.setString(1, newTitle);
         ps.setString(2, newAuthor);
         ps.setInt(3, id);
-        int numRowsChanged = ps.executeUpdate();
-        if (numRowsChanged == 0) {
-            System.out.println("No book found with ID " + id + ".");
-        } else {
-            System.out.println("Changed entry " + id + " to " + newTitle + " by " + newAuthor + ".");
-        }
+        return ps.executeUpdate() != 0;
     }
 
     @Override
@@ -57,7 +50,6 @@ public class SQLBookDB implements BookInterface {
         PreparedStatement ps = con.prepareStatement("DELETE FROM books WHERE rowid = ?");
         ps.setInt(1, id);
         ps.executeUpdate();
-        System.out.println("Removed entry " + id + ".");
     }
 
     @Override
