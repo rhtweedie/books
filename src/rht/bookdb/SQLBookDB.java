@@ -56,6 +56,7 @@ public class SQLBookDB implements BookInterface {
         ps.executeUpdate();
         System.out.println("Removed entry " + id + ".");
     }
+
     @Override
     public String[] searchBooks() {
         // TODO Auto-generated method stub
@@ -79,22 +80,5 @@ public class SQLBookDB implements BookInterface {
         }
 
         return books;
-    }
-
-    public static void main(String[] args) {
-        String filename = "bookDB";
-        try {
-            SQLBookDB bookDB = new SQLBookDB(filename);
-            bookDB.addBook("Catch-22", "Joseph Heller");
-            ArrayList<Book> books = bookDB.getAllBooks();
-            System.out.println("--- All books contained in database ---");
-            for (int i = 0; i < books.size(); i++) {
-                System.out.println((books.get(i)).getTitle() + ", " + (books.get(i)).getAuthor());
-            }
-            bookDB.editBook("Catch-22", "The Honourable Schoolboy", "John le Carre");
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.exit(1);
-        }
     }
 }
