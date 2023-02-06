@@ -47,6 +47,7 @@ public class BookCommander {
             System.out.println("1: List all books");
             System.out.println("2: Add a book");
             System.out.println("3: Edit a book");
+            System.out.println("4: Remove a book");
             System.out.print("Option: ");
 
             int choice = Integer.parseInt(sc.nextLine());
@@ -66,7 +67,7 @@ public class BookCommander {
                     break;
                 case 3:
                     System.out.print("What is the ID of the book to be edited? ");
-                    String id = sc.nextLine();
+                    int id = Integer.parseInt(sc.nextLine());
                     System.out.print("New title: ");
                     String newTitle = sc.nextLine();
                     System.out.print("New author: ");
@@ -96,8 +97,10 @@ public class BookCommander {
         bookDB.addBook(title, author);
     }
 
-    private void editBook(String oldTitle, String newTitle, String newAuthor) throws IOException, SQLException {
-        bookDB.editBook(oldTitle, newTitle, newAuthor);
+    private void editBook(int id, String newTitle, String newAuthor) throws IOException, SQLException {
+        bookDB.editBook(id, newTitle, newAuthor);
+    }
+
     private void removeBook(int id) throws IOException, SQLException {
         bookDB.removeBook(id);
     }

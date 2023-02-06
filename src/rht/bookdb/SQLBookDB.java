@@ -39,11 +39,11 @@ public class SQLBookDB implements BookInterface {
     }
 
     @Override
-    public void editBook(String id, String newTitle, String newAuthor) throws SQLException {
+    public void editBook(int id, String newTitle, String newAuthor) throws SQLException {
         PreparedStatement ps = con.prepareStatement("UPDATE books SET title = ?, author = ? WHERE rowid = ?");
         ps.setString(1, newTitle);
         ps.setString(2, newAuthor);
-        ps.setString(3, id);
+        ps.setInt(3, id);
         int numRowsChanged = ps.executeUpdate();
         System.out.println("Changed entry " + id + " to " + newTitle + " by " + newAuthor + ".");
         System.out.println("Number of rows updated: " + numRowsChanged);

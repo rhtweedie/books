@@ -21,7 +21,8 @@ interface BookInterface {
      * @param newTitle  The new title of the book
      * @param newAuthor The new author of the book
      */
-    public void editBook(String oldTitle, String newTitle, String newAuthor) throws IOException, SQLException;
+    public void editBook(int id, String newTitle, String newAuthor) throws IOException, SQLException;
+
     public void removeBook(int rowid) throws IOException, SQLException;
 
     public String[] searchBooks();
