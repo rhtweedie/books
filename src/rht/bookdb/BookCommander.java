@@ -56,6 +56,7 @@ public class BookCommander {
                     System.out.print("New author: ");
                     String newAuthor = sc.nextLine();
                     editBook(oldTitle, newTitle, newAuthor);
+                    break;
                 default:
                     System.out.println("Invalid option.");
             }
