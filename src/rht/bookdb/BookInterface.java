@@ -17,11 +17,11 @@ interface BookInterface {
     /**
      * Edits an entry in the database.
      * 
-     * @param oldTitle  The current title of the book entry to be changed
+     * @param id        The ID of the of the book entry to be changed
      * @param newTitle  The new title of the book
      * @param newAuthor The new author of the book
      */
-    public void editBook(int id, String newTitle, String newAuthor) throws IOException, SQLException;
+    public boolean editBook(int id, String newTitle, String newAuthor) throws IOException, SQLException;
 
     public void removeBook(int rowid) throws IOException, SQLException;
 
