@@ -67,7 +67,7 @@ public class BookCommander {
     private void listAllBooks() throws IOException, SQLException {
         ArrayList<Book> books = bookDB.getAllBooks();
         for (Book book : books) {
-            System.out.println(book.getTitle() + " by " + book.getAuthor());
+            System.out.println(book.getID() + ": " + book.getTitle() + " by " + book.getAuthor());
         }
     }
 

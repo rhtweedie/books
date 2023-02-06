@@ -63,9 +63,10 @@ public class SQLBookDB implements BookInterface {
         try (Statement stmt = con.createStatement()) {
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
+                int id = rs.getInt("rowid");
                 String title = rs.getString("title");
                 String author = rs.getString("author");
-                Book book = new Book(title, author);
+                Book book = new Book(id, title, author);
                 books.add(book);
             }
         }

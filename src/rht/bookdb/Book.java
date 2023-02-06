@@ -2,12 +2,18 @@ package rht.bookdb;
 
 public class Book {
 
-    private String title;
-    private String author;
+    private final int id;
+    private final String title;
+    private final String author;
 
-    public Book(String title, String author) {
+    public Book(int id, String title, String author) {
+        this.id = id;
         this.title = title;
         this.author = author;
+    }
+
+    public int getID() {
+        return id;
     }
 
     public String getTitle() {
