@@ -49,13 +49,13 @@ public class BookCommander {
                     addBook(title, author);
                     break;
                 case 3:
-                    System.out.print("What is the title of the book to be edited? ");
-                    String oldTitle = sc.nextLine();
+                    System.out.print("What is the ID of the book to be edited? ");
+                    String id = sc.nextLine();
                     System.out.print("New title: ");
                     String newTitle = sc.nextLine();
                     System.out.print("New author: ");
                     String newAuthor = sc.nextLine();
-                    editBook(oldTitle, newTitle, newAuthor);
+                    editBook(id, newTitle, newAuthor);
                     break;
                 default:
                     System.out.println("Invalid option.");
