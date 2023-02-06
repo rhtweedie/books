@@ -30,28 +30,23 @@ public class SQLBookDB implements BookInterface {
 
     @Override
     public void addBook(String title, String author) throws SQLException {
-        String insert = "INSERT INTO books (title, author) VALUES (?,?)";
-        PreparedStatement ps = null;
-        int numRowsInserted = 0;
-
-        ps = con.prepareStatement(insert);
+        PreparedStatement ps = con.prepareStatement("INSERT INTO books (title, author) VALUES (?,?)");
         ps.setString(1, title);
         ps.setString(2, author);
-        numRowsInserted = ps.executeUpdate();
+        int numRowsInserted = ps.executeUpdate();
         System.out.println("Added " + title + " by " + author);
         System.out.println("Number of rows inserted: " + numRowsInserted);
     }
 
     @Override
     public void editBook(String oldTitle, String newTitle, String newAuthor) throws SQLException {
-        String update = "UPDATE books SET title = ? WHERE title = ? AND author = ?";
-        PreparedStatement ps = null;
-
-        ps = con.prepareStatement(update);
+        PreparedStatement ps = con.prepareStatement("UPDATE books SET title = ?, author = ? WHERE title = ?");
         ps.setString(1, newTitle);
-        ps.setString(2, oldTitle);
-        ps.setString(3, newAuthor);
+        ps.setString(2, newAuthor);
+        ps.setString(3, oldTitle);
+        int numRowsChanged = ps.executeUpdate();
         System.out.println("Changed entry for " + oldTitle + " to " + newTitle + " by " + newAuthor + ".");
+        System.out.println("Number of rows updated: " + numRowsChanged);
     }
 
     @Override
