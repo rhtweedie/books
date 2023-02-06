@@ -50,6 +50,13 @@ public class SQLBookDB implements BookInterface {
     }
 
     @Override
+    public void removeBook(int id) throws IOException, SQLException {
+        PreparedStatement ps = con.prepareStatement("DELETE FROM books WHERE rowid = ?");
+        ps.setInt(1, id);
+        ps.executeUpdate();
+        System.out.println("Removed entry " + id + ".");
+    }
+    @Override
     public String[] searchBooks() {
         // TODO Auto-generated method stub
         return null;

@@ -73,6 +73,11 @@ public class BookCommander {
                     String newAuthor = sc.nextLine();
                     editBook(id, newTitle, newAuthor);
                     break;
+                case 4:
+                    System.out.println("Which book would you like to remove?");
+                    int removeID = Integer.parseInt(sc.nextLine());
+                    removeBook(removeID);
+                    break;
                 default:
                     System.out.println("Invalid option.");
             }
@@ -93,5 +98,7 @@ public class BookCommander {
 
     private void editBook(String oldTitle, String newTitle, String newAuthor) throws IOException, SQLException {
         bookDB.editBook(oldTitle, newTitle, newAuthor);
+    private void removeBook(int id) throws IOException, SQLException {
+        bookDB.removeBook(id);
     }
 }
