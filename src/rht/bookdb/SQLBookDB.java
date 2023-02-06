@@ -45,8 +45,11 @@ public class SQLBookDB implements BookInterface {
         ps.setString(2, newAuthor);
         ps.setString(3, id);
         int numRowsChanged = ps.executeUpdate();
-        System.out.println("Changed entry " + id + " to " + newTitle + " by " + newAuthor + ".");
-        System.out.println("Number of rows updated: " + numRowsChanged);
+        if (numRowsChanged == 0) {
+            System.out.println("No book found with ID " + id + ".");
+        } else {
+            System.out.println("Changed entry " + id + " to " + newTitle + " by " + newAuthor + ".");
+        }
     }
 
     @Override
